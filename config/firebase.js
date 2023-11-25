@@ -2,7 +2,9 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import Constants from "expo-constants";
-import 'dotenv/config';
+// import 'dotenv/config';
+import {API_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MESSAGING_SENDER_ID, APP_ID} from "@env";
+
 
 const firebaseConfig = {
   apiKey: process.env.API_KEY,

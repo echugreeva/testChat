@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { useState, useEffect, useCallback } from 'react';
+import Signup from './screens/Signup';
 
 export default function App() {
   const [messages, setMessages] = useState([
@@ -43,6 +44,7 @@ export default function App() {
         user={{
           _id: 1,
         }} />
+        <Signup/>
     </View>
   );
 }
