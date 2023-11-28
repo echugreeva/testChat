@@ -1,51 +1,52 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useState, useEffect, useCallback } from 'react';
 import Signup from './screens/Signup';
+import Chats from './screens/Chats';
+import Messages from './screens/Messages'
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [messages, setMessages] = useState([
-    {
-      _id: 1,
-      text: 'Hello developer',
-      createdAt: new Date(),
-      user: {
-        _id: 2,
-        name: 'React Native',
-        avatar: 'https://placeimg.com/140/140/any',
-      },
-    },
-  ]);
-  const onSend = useCallback((messages = []) => {
-    setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
-  }, []);
-  useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: 'Hello developer',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
-        },
-      },
-    ])
-  }, [])
+  const [user, setUser] = useState('');
 
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <GiftedChat style={{flex: 1}}
-        messages={messages}
-        onSend={messages => onSend(messages)}
-        user={{
-          _id: 1,
-        }} />
-        <Signup/>
-    </View>
+    <NavigationContainer >
+      <Stack.Navigator screenOptions={{
+        headerStyle: {
+          backgroundColor: '#009387',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }}>
+        {user ?
+          <>
+            <Stack.Screen name="Messages" options={() => ({
+              headerBackVisible: false,
+            })}>
+              {props => <Messages {...props} user={user} />}
+            </Stack.Screen>
+            <Stack.Screen name="Chats" options={({ route }) => ({
+              title: route.params.name,
+              headerBackTitleVisible: false
+            })}>
+              {props => <ChatScreen {...props} user={user} />}
+            </Stack.Screen>
+          </>
+          :
+
+          <Stack.Screen name="Auth" component={Signup} options={() => ({
+            headerBackVisible: false,
+            headerShown: false,
+          })} />
+        }
+
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
@@ -56,4 +57,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  image: {
+    flex: 1,
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
+  },
+  iconColor: {
+    color: '009387',
+  }
 });
