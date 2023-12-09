@@ -15,6 +15,7 @@ export default function App() {
 
   return (
     <NavigationContainer >
+      {/* <Signup/> */}
       <Stack.Navigator screenOptions={{
         headerStyle: {
           backgroundColor: '#009387',
