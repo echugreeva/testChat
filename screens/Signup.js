@@ -4,21 +4,21 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, database } from "../config/firebase";
 
 const Signup = ({ navigation }) => {
-    const [name, setName] = useState("");
+    // const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [imageURL, setImageURL] = useState(""); 
+    // const [imageURL, setImageURL] = useState(""); 
     const onHandleSignup = async () => {
         try {
           const userCredential = await createUserWithEmailAndPassword(auth, email, password);
           const user = userCredential.user;
           const userRef = doc(database, "users", user.uid);
           await setDoc(userRef, {
-            displayName: name,
+            // displayName: name,
             email: email,
             uid: user.uid,
-            photoURL: imageURL || profile,
-            phoneNumber: "",
+            // photoURL: imageURL || profile,
+            // phoneNumber: "",
           });
         } catch (error) {
           Alert.alert(error.message);
@@ -38,7 +38,7 @@ const Signup = ({ navigation }) => {
       
           <SafeAreaView style={styles.form}>
             {/* Input Fields */}
-            <TextInput
+            {/* <TextInput
               style={styles.input}
               placeholder="Enter name"
               autoCapitalize="none"
@@ -46,7 +46,7 @@ const Signup = ({ navigation }) => {
               textContentType="name"
               value={name}
               onChangeText={(text) => setName(text)}
-            />
+            /> */}
             <TextInput
               style={styles.input}
               placeholder="Enter email"
@@ -68,12 +68,12 @@ const Signup = ({ navigation }) => {
               value={password}
               onChangeText={(text) => setPassword(text)}
             />
-            <TextInput
+            {/* <TextInput
               style={styles.input}
               placeholder="Enter image URL"
               value={imageURL}
               onChangeText={(text) => setImageURL(text)}
-            />
+            /> */}
       
             {/* Signup Button */}
             <TouchableOpacity style={styles.button} onPress={onHandleSignup}>

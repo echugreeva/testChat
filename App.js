@@ -6,7 +6,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useState, useEffect, useCallback } from 'react';
 import Signup from './screens/Signup';
 import Chats from './screens/Chats';
-import Messages from './screens/Messages'
+import Messages from './screens/Messages';
+import Login from './screens/Login';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,15 +37,23 @@ export default function App() {
               title: route.params.name,
               headerBackTitleVisible: false
             })}>
-              {props => <ChatScreen {...props} user={user} />}
+              {props => <Chats {...props} user={user} />}
             </Stack.Screen>
           </>
           :
-
+          <>
           <Stack.Screen name="Auth" component={Signup} options={() => ({
             headerBackVisible: false,
             headerShown: false,
           })} />
+          <Stack.Screen name="Login" component={Login} options={() => ({
+            headerBackVisible: false,
+            headerShown: false,
+          })} />
+
+          </>
+          
+
         }
 
       </Stack.Navigator>
